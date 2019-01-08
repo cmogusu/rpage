@@ -57,8 +57,10 @@
                 return (
                     element.hasClass('pagination-prev')
                     || element.hasClass('pagination-next')
-                    || element.text() == "»"
-                    || element.text() == "«"
+                    || element.text().trim() == "»"
+                    || element.text().trim() == "«"
+                    || element.text().trim().toLowerCase().includes('prev')
+                    || element.text().trim().toLowerCase().includes('next')
                 );
         	}
 
@@ -103,11 +105,11 @@
     			    			candid_candidate.css("display", "none");
     			    			if (this.needsEtcSign(active_index, farthest_index - 1))
     			    			{
-    			    				this.els.eq(farthest_index - 2).before("<li class='disabled removable'><span>...</span></li>");
+    			    				this.els.eq(farthest_index - 2).before("<li class='disabled removable'><span class='page-link'>...</span></li>");
     			    			}
     			    			if (this.needsEtcSign(1, active_index))
     			    			{
-    			    				this.els.eq(1).after("<li class='disabled removable'><span>...</span></li>");
+    			    				this.els.eq(1).after("<li class='disabled removable'><span class='page-link'>...</span></li>");
     			    			}
     			    			return true;
     		    			}
