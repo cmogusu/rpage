@@ -15,7 +15,7 @@
         {
             this.label = function()
             {
-                var active_index = this.els.filter(".active").index();
+                var active_index = this.els.filter(".active").find('.page-link').text('Active').end().index();
                 var rp = this;
                 this.els.each(function(){
                     if (rp.isNextOrPrevLink($(this)) == false)
@@ -55,10 +55,10 @@
             this.isNextOrPrevLink = function(element)
             {
                 return (
-                    element.hasClass('pagination-prev')
-                    || element.hasClass('pagination-next')
-                    || element.text().trim() == "»"
+                    element.text().trim() == "»"
                     || element.text().trim() == "«"
+                    || element.hasClass('pagination-prev')
+                    || element.hasClass('pagination-next')
                     || element.text().trim().toLowerCase().includes('prev')
                     || element.text().trim().toLowerCase().includes('next')
                 );
@@ -71,10 +71,6 @@
                     return false;
                 }
                 var index = this.els.filter(element).index();
-                if (index == 1 || this.isNextOrPrevLink($container.find("li").eq(index + 1)))
-                {
-                    return false;
-                }
                 if (element.text() == "...")
                 {
                     return false;
@@ -103,14 +99,6 @@
                             if (this.isRemovable(candid_candidate))
                             {
                                 candid_candidate.css("display", "none");
-                                if (this.needsEtcSign(active_index, farthest_index - 1))
-                                {
-                                    this.els.eq(farthest_index - 2).before("<li class='disabled removable'><span class='page-link'>...</span></li>");
-                                }
-                                if (this.needsEtcSign(1, active_index))
-                                {
-                                    this.els.eq(1).after("<li class='disabled removable'><span class='page-link'>...</span></li>");
-                                }
                                 return true;
                             }
                         }
